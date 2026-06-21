@@ -19,7 +19,7 @@ const slides = [
       {slides.map((slide) => (
         <div class="swiper-slide">
           <div class="slide-card">
-              <Picture src={slide.image} alt={slide.text} formats={['avif', 'webp']} widths={[320, 450, 499]} sizes="(max-width: 767px) 320px, 450px" />
+              <Picture src={slide.image} alt={slide.text} formats={['avif', 'webp']} widths={[320, 450, 499]} sizes="(max-width: 767px) 320px, 450px" priority={true}/>
           </div>
         </div>
       ))}
@@ -32,18 +32,22 @@ const slides = [
 
 <script>
   // This carousel is above the fold, so we still want it interactive
-  // quickly — but we defer the import/init to idle time so Swiper's
-  // parse/execute cost doesn't compete with the hero image for the
-  // main thread during the critical LCP window.
+  // quickly — but we defer the Swiper JS import/init to idle time so
+  // its parse/execute cost doesn't compete with the hero image for the
+  // main thread during the critical LCP window. The (small, ~8KB) CSS
+  // is imported statically below — dynamically importing CSS chunks
+  // at runtime is unreliable, since Vite may merge multiple swiper/css/*
+  // imports into a single combined chunk at build time, and the
+  // generated hashed filename can then mismatch what the dynamic
+  // import() call requests, causing 404s on the CSS chunk.
+  import 'swiper/css';
+  import 'swiper/css/effect-cards';
+
   async function initBannerSlider() {
     const [{ default: Swiper }, { EffectCards }] = await Promise.all([
       import('swiper'),
       import('swiper/modules'),
     ]);
-    // @ts-ignore - CSS side-effect imports have no type declarations
-    await import('swiper/css');
-    // @ts-ignore
-    await import('swiper/css/effect-cards');
 
     new Swiper('.banner_card_slider', {
       modules: [EffectCards],

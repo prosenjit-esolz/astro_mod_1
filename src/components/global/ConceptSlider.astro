@@ -43,6 +43,9 @@ const slides = [
 </div>
 
 <script>
+  import 'swiper/css';
+  import 'swiper/css/navigation';
+
   const wrap = document.querySelector(".concept-slider-wrap");
 
   async function initConceptSlider() {
@@ -51,13 +54,10 @@ const slides = [
       import("swiper/modules"),
     ]);
 
-    await Promise.all([import("swiper/css"), import("swiper/css/navigation")]);
-
     new Swiper(".conceptSwiper", {
       modules: [Navigation, Autoplay],
       slidesPerView: 4,
       loop: true,
-      // allowTouchMove: false,
       navigation: {
         nextEl: ".slider-btn-next",
         prevEl: ".slider-btn-prev",
@@ -67,15 +67,9 @@ const slides = [
         disableOnInteraction: true,
       },
       breakpoints: {
-        320: {
-          slidesPerView: 2,
-        },
-        991: {
-          slidesPerView: 3,
-        },
-        1199: {
-          slidesPerView: 4,
-        },
+        320: { slidesPerView: 2 },
+        991: { slidesPerView: 3 },
+        1199: { slidesPerView: 4 },
       },
     });
   }
@@ -88,11 +82,8 @@ const slides = [
             initConceptSlider();
           }
         },
-        {
-          rootMargin: "300px",
-        },
+        { rootMargin: "300px" },
       );
-
       observer.observe(wrap);
     } else {
       initConceptSlider();
