@@ -73,6 +73,7 @@ const {
     </div>
     <div class="btm_anim_wrp">
       <button onclick="document.getElementById('about_sec')?.scrollIntoView({ behavior: 'smooth' })">
+        <span class="sr-only">Scroll to About Section</span>
         <AnimatedCircle />
       </button>
     </div>
@@ -133,6 +134,18 @@ const {
   .btm_anim_wrp button {
     background-color: transparent;
     padding: 0;
+    position: relative;
+  }
+  .btm_anim_wrp button .sr-only{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   /* ── Responsive ──────────────────────────────────────────────── */
