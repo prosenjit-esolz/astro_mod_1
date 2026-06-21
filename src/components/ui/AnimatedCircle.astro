@@ -1,0 +1,79 @@
+---
+import circleText from '../../assets/icons/circle-text.svg';
+import centerIcon from '../../assets/icons/center-icon.svg';
+---
+
+<div class="anim_crcle">
+    <div class="circle-text">
+        <img src={circleText.src} width="145" height="145" alt="" aria-hidden="true" loading="eager" decoding="async" />
+    </div>
+
+    <div class="center-icon">
+      <img src={centerIcon.src} width="26" height="55" alt="" aria-hidden="true" loading="eager" decoding="async" />
+    </div>
+</div>
+
+
+<style>
+.anim_crcle {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Rotating outer text */
+.circle-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: rotateText 15s linear infinite;
+    transform-origin: center center;
+}
+
+.circle-text img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Floating center icon */
+.center-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: floatIcon 2s ease-in-out infinite;
+    z-index: 2;
+}
+
+.center-icon img {
+    width: 55px;
+    height: 55px;
+    display: block;
+}
+
+/* Rotate outer circle */
+@keyframes rotateText {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Float center icon */
+@keyframes floatIcon {
+    0%, 100% {
+        transform: translate(-50%, -50%) translateY(2px);
+    }
+    50% {
+        transform: translate(-50%, -50%) translateY(-6px);
+    }
+}
+</style>
